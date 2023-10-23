@@ -2,14 +2,16 @@ import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
 
-    const nav = useNavigate();
+    const navigate = useNavigate();
 
-    async function handleSubmit() {
-        nav("/home");
+    const onLogin=() => {
+        navigate('/home',{
+            replace: true
+        })
     }
 
     return (
-        <form className="min-h-screen bg-purple-400 flex justify-center items-center group" noValidate onSubmit={handleSubmit}>
+        <form className="min-h-screen bg-purple-400 flex justify-center items-center group" noValidate onSubmit={onLogin}>
 
             <div className="py-12 px-12 bg-white rounded-2xl shadow-xl z-20">
                 <div>
