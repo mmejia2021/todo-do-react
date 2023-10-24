@@ -1,28 +1,38 @@
-import { useNavigate } from "react-router-dom";
+import { useAuthStore, useForm } from "../../Pages";
+
+const loginForm = {
+    correo: '',
+    password: ''
+}
 
 export const Login = () => {
 
-    const navigate = useNavigate();
+    const { startLogin } = useAuthStore();
 
-    const onLogin=() => {
-        navigate('/home',{
-            replace: true
-        })
+    const { correo: correo, password, onInputChange: onLoginChange } = useForm(loginForm);
+
+    const loginFormSubmit = (event) => {
+        event.preventDefault();
+        startLogin({correo, password})
     }
 
+
+
     return (
-        <form className="min-h-screen bg-purple-400 flex justify-center items-center group" noValidate onSubmit={onLogin}>
+        <form className="min-h-screen bg-purple-400 flex justify-center items-center group" noValidate onSubmit={loginFormSubmit}>
 
             <div className="py-12 px-12 bg-white rounded-2xl shadow-xl z-20">
                 <div>
                     <h1 className="text-3xl font-bold text-center mb-4 cursor-pointer">Iniciar sesión</h1>
                 </div>
                 <div className="space-y-4">
-                    <label name="email">
+                    <label>
                         <input type="email"
                             required
-                            name="email"
-                            id="email"
+                            name="correo"
+                            value={correo}
+                            id="correo"
+                            onChange={onLoginChange}
                             placeholder="Correo electrónico"
                             className="block text-sm py-3 px-4 rounded-lg w-full border outline-none invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
                             pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}?" />
@@ -30,7 +40,7 @@ export const Login = () => {
                             Por favor ingreso un correo valido
                         </span>
                     </label>
-                    <input type="password" name="password" id="password" required placeholder="Contraseña" className="block text-sm py-3 px-4 rounded-lg w-full border outline-none invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500" pattern=".{4,}" />
+                    <input type="password" name="password" id="password" value={password} onChange={onLoginChange} required placeholder="Contraseña" className="block text-sm py-3 px-4 rounded-lg w-full border outline-none invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500" pattern=".{4,}" />
 
                 </div>
                 <div className="text-center mt-6">
