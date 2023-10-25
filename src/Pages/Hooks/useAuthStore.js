@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { userApi } from "../../api";
-import { onChecking, onLogin, onLogout } from '../../store/auth/authSlide'
+import { onChecking, onLogin, onLogout, clearErrorMessage } from '../../store/auth/authSlide'
 
 export const useAuthStore = () => {
 
@@ -18,7 +18,37 @@ export const useAuthStore = () => {
             console.log({ data });
 
         } catch (error) {
-            dispatch(onLogout('Credenciales incorrectas') );
+            dispatch(onLogout('Credenciales incorrectas'));
+            setTimeout(() => {
+                dispatch(clearErrorMessage());
+            }, 10);
+        }
+    }
+ 
+
+    const startRegister = async ({ nombre, edad, apellido, google, nuevoCampo, correo, password, rol }) => {
+        dispatch(onChecking());
+        try {
+            const {data} = await userApi.post('/usuarios', { nombre, edad, apellido, google, nuevoCampo, correo, password, rol });
+            console.log({ data }); 
+            
+        } catch (error) {
+            console.log(error)
+            dispatch(onLogout('Credenciales incorrectas'));
+            setTimeout(() => {
+                dispatch(clearErrorMessage());
+            }, 10);
+        }
+
+    }
+
+    const checkAuthToken = async() => {
+        const token = localStorage.getItem('token')
+        if (!token) return dispatch(onLogout());
+        try {
+            const {data} = await 
+        } catch (error) {
+            
         }
     }
 
@@ -28,5 +58,6 @@ export const useAuthStore = () => {
         errorMessage,
 
         startLogin,
+        startRegister
     }
 }

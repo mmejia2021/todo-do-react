@@ -5,7 +5,17 @@ import { getEnvVariables } from '../helpers'
 const { VITE_API_URL } = getEnvVariables();
 
 const userApi = axios.create({
-    baseURL: VITE_API_URL
+    baseURL: VITE_API_URL,
 });
 
+userApi.interceptors.request.use(config => {
+    config.headers = {
+        ...config.headers,
+        'x-token': localStorage.getItem('token'),
+    }
+
+    return config
+}) 
+
+ 
 export default userApi;
