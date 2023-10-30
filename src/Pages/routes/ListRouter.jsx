@@ -9,7 +9,7 @@ export const ListRouter = () => {
 
       <NavBar />
       <Routes>
-        <Route path="/home" element={<Home />} />
+      <Route path="/home" element={<Home />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/" element={<Navigate to ="/home" />} />
       </Routes>

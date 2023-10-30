@@ -26,7 +26,7 @@ const SignupPage = () => {
           return;
         }
         startRegister({nombre, apellido, edad , google, nuevoCampo, correo, password, rol});
-        console.log({nombre, apellido, edad , google, nuevoCampo, correo, password,password2, rol})
+        //console.log({nombre, apellido, edad , google, nuevoCampo, correo, password,password2, rol})
     }
 
   return (
