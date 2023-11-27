@@ -1,0 +1,12 @@
+version: "3.4"
+
+services:
+  frontend:
+    build: ./
+    image: frontend-melany
+    container_name:  frontend-melany
+    restart: unless-stopped
+    environment:
+      - VITE_API_URL=https://curso-node-restserver-production-2727.up.railway.app/api
+    ports:
+      - "80:80"

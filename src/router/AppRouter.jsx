@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Login } from '../auth';
-import { ListRouter, useAuthStore } from "../Pages";
+import { ListRoutes, useAuthStore } from "../Pages";
 import { useEffect } from "react";
 const AppRouter = () => {
 
@@ -12,9 +12,9 @@ const AppRouter = () => {
   useEffect(() => {
     checkAuthToken();
   }, [])
-  if (status === 'checking') {
+/*   if (status === 'checking') {
  
-  }
+  } */
 
   return (
     <>
@@ -23,14 +23,14 @@ const AppRouter = () => {
           (status === 'not-authenticated')
             ?(
               <>
-              <Route path="/auth/*" element={< Login />} />
-              <Route path="/*" element={<Navigate to="/auth/login" />} />
+              <Route path='/auth/*' element={< Login />} />
+              <Route path='/' element={<Navigate to='/auth/login' />} />
               </>
             )
             :
             <>
-              <Route path="*" element={<ListRouter />} />
-              <Route path="*" element={<Navigate to="/" />} />
+              <Route path='*' element={<ListRoutes />} />
+              <Route path='/*' element={<Navigate to='/' />} />
             </>
         }
       </Routes>
