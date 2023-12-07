@@ -1,12 +1,13 @@
 import { useEffect, useRef } from "react";
-import { useAuthStore } from "./Hooks/useAuthStore";
 import Swal from "sweetalert2";
+import { useAuthStore } from "../hooks";
 
 const Home = () => {
 
 
   const { user, obtenerUsers, onDeteleUser } = useAuthStore();
   const listUser = useRef([])
+
 
 
   useEffect(() => {

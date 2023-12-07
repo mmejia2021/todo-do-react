@@ -1,6 +1,6 @@
 
 import { NavLink } from "react-router-dom";
-import { useAuthStore } from "../Pages";
+import { useAuthStore } from '../hooks';
 export const NavBar = () => {
 
 
@@ -20,7 +20,7 @@ export const NavBar = () => {
                 </div>
                 <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
                     <ul className="text-sm lg:flex-grow">
-                        <NavLink to="/home" className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
+                        <NavLink className={ ({isActive}) => `block mt-4 lg:inline-block lg:mt-0 text-white hover:text-black mr-4 ${isActive ? 'active:underline':''}`} to="/home">
                             HOME
                         </NavLink>
                         <NavLink to="/signup" className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4"> 

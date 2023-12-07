@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
-import { userApi } from "../../api";
-import { onChecking, onLogin, onLogout, OnGetUsers, clearErrorMessage, onDelete } from '../../store/auth/authSlide'
+import { userApi } from "../api";
+import { onChecking, onLogin, onLogout, OnGetUsers, clearErrorMessage, onDelete } from '../store'
+
 
 export const useAuthStore = () => {
 
@@ -11,10 +12,11 @@ export const useAuthStore = () => {
         dispatch(onChecking());
         try {
             const data = await userApi.post('/auth/login', { correo, password });
-            localStorage.setItem('token', data.data.token)
+            localStorage.setItem('token', data.data.token);
+            localStorage.setItem('token-init-date', new Date().getTime() );
+            localStorage.setItem('nombre', data.data.usuario.nombre );
+            localStorage.setItem('uid', data.data.usuario.uid );
             dispatch(onLogin({ nombre: data.data.usuario.nombre, uid: data.data.usuario.uid }));
-
-            console.log({ data });
 
         } catch (error) {
             dispatch(onLogout('Credenciales incorrectas'));
@@ -30,10 +32,12 @@ export const useAuthStore = () => {
         try {
             const { data } = await userApi.post('/usuarios', { nombre, edad, apellido, google, nuevoCampo, correo, password, rol });
             console.log({ data });
+            dispatch(onLogin({ nombre: data.usuario.nombre, uid: data.usuario.uid }));
+            
 
         } catch (error) {
             console.log(error)
-            dispatch(onLogout('Credenciales incorrectas'));
+            dispatch(onLogout('Ocurrio un errro en el registro'));
             setTimeout(() => {
                 dispatch(clearErrorMessage());
             }, 10);
@@ -43,7 +47,18 @@ export const useAuthStore = () => {
 
     const checkAuthToken = async () => {
         const token = localStorage.getItem('token')
+        const nombre = localStorage.getItem('nombre')
+        const uid = localStorage.getItem('uid')
         if (!token) return dispatch(onLogout());
+        try {
+            const data = localStorage.getItem('token');
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('token-init-date', new Date().getTime() );
+            dispatch(onLogin({ nombre: nombre, uid: uid }));
+        } catch (error) {
+            localStorage.clear();
+            dispatch(onLogout());
+        }
     }
 
     const startLogout = async () => {

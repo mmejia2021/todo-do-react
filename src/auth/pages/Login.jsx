@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { useAuthStore, useForm } from "../../Pages";
+import { useAuthStore } from '../../hooks';
+import { useForm } from "../../Pages/hooks/useForm";
 import Swal from "sweetalert2";
 
 const loginForm = {

@@ -1,10 +1,11 @@
-import AppRouter from './router/AppRouter';
+//import AppRouter from './router/AppRouter';
+import MainRouter from './router/MainRouter';
 
 function App() {
   
   return (
     <>
-      <AppRouter />
+      <MainRouter />
     </>
   )
 }

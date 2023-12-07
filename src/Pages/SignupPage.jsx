@@ -1,6 +1,7 @@
 import Swal from "sweetalert2";
-import { useForm } from "./Hooks/useForm";
-import { useAuthStore } from "./Hooks/useAuthStore";
+import { useForm } from "./hooks/useForm";
+import { useAuthStore } from '../hooks';
+import { useNavigate} from 'react-router-dom';
 
 const RegisterForm = {
   nombre: '',
@@ -14,9 +15,11 @@ const RegisterForm = {
   rol: 'USER_ROLE'
 
 }
+
 const SignupPage = () => {
   
   const { startRegister } = useAuthStore();
+  const navigate = useNavigate();
   const { nombre, apellido, edad , google, nuevoCampo, correo, password,password2, rol, onInputChange: onRegisterChange } = useForm(RegisterForm);
 
     const registerFormSubmit = (event) => {
@@ -26,7 +29,7 @@ const SignupPage = () => {
           return;
         }
         startRegister({nombre, apellido, edad , google, nuevoCampo, correo, password, rol});
-        //console.log({nombre, apellido, edad , google, nuevoCampo, correo, password,password2, rol})
+        navigate('/home')
     }
 
   return (
