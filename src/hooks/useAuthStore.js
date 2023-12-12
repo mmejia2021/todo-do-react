@@ -34,7 +34,6 @@ export const useAuthStore = () => {
             console.log({ data });
             dispatch(onLogin({ nombre: data.usuario.nombre, uid: data.usuario.uid }));
             
-
         } catch (error) {
             console.log(error)
             dispatch(onLogout('Ocurrio un errro en el registro'));
@@ -74,6 +73,8 @@ export const useAuthStore = () => {
             data: data
             }));
         } catch (error) {
+            localStorage.clear();
+            dispatch(onLogout());
             console.log(error);
         }
 
@@ -88,6 +89,7 @@ export const useAuthStore = () => {
             }))
             console.log(data)
         } catch (error) {
+            dispatch(onLogout());
             console.log(error);
         }
 

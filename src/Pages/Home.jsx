@@ -4,6 +4,10 @@ import { useAuthStore } from "../hooks";
 
 const Home = () => {
 
+  const init = () => {
+    return JSON.parse(localStorage.getItem('todos') || []);
+  }
+
 
   const { user, obtenerUsers, onDeteleUser } = useAuthStore();
   const listUser = useRef([])
@@ -11,10 +15,9 @@ const Home = () => {
 
 
   useEffect(() => {
-    obtenerUsers();
+   obtenerUsers;
     listUser.current = user?.data?.usuarios;
-    console.log(listUser);
-  }, [])
+  }, [obtenerUsers])
 
   const onHandlerDelete = (id) => {
     Swal.fire({
