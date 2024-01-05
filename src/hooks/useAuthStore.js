@@ -51,7 +51,7 @@ export const useAuthStore = () => {
         if (!token) return dispatch(onLogout());
         try {
             const data = localStorage.getItem('token');
-            localStorage.setItem('token', data.token);
+           // localStorage.setItem('token', data.token);
             localStorage.setItem('token-init-date', new Date().getTime() );
             dispatch(onLogin({ nombre: nombre, uid: uid }));
         } catch (error) {
@@ -65,20 +65,6 @@ export const useAuthStore = () => {
         dispatch(onLogout());
     }
 
-    const obtenerUsers = async (desde = 0, limite = 10) => {
-        dispatch(onChecking());
-        try {
-            const { data } = await userApi.get(`/usuarios?desde=${desde}&limite=${limite}`);
-           dispatch(OnGetUsers({ 
-            data: data
-            }));
-        } catch (error) {
-            localStorage.clear();
-            dispatch(onLogout());
-            console.log(error);
-        }
-
-    }
 
     const onDeteleUser = async (id) => {
         dispatch(onChecking());
@@ -103,7 +89,6 @@ export const useAuthStore = () => {
         startRegister,
         checkAuthToken,
         startLogout,
-        obtenerUsers,
         onDeteleUser
     }
 }

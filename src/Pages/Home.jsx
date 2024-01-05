@@ -1,23 +1,21 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import Swal from "sweetalert2";
 import { useAuthStore } from "../hooks";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers } from "../store/user/thunks";
 
 const Home = () => {
 
-  const init = () => {
-    return JSON.parse(localStorage.getItem('todos') || []);
-  }
+  const dispatch = useDispatch();
 
-
-  const { user, obtenerUsers, onDeteleUser } = useAuthStore();
-  const listUser = useRef([])
+  const { onDeteleUser } = useAuthStore();
+  const { isLoading, page, users } = useSelector(state => state.users);
 
 
 
   useEffect(() => {
-   obtenerUsers;
-    listUser.current = user?.data?.usuarios;
-  }, [obtenerUsers])
+    dispatch(getUsers());
+  }, [])
 
   const onHandlerDelete = (id) => {
     Swal.fire({
@@ -38,39 +36,17 @@ const Home = () => {
           'success'
         );
       }
-      obtenerUsers();
     })
   }
-
-  /*  const  onHandlerDelete = (id) => {
-    console.log(id);
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        onDeteleUser({id: id})
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
-      }
-    })
-   } */
+  const onHandlerUpdate = (data) => {
+    console.log(data)
+  }
 
 
-  //const data = obtenerUsers();
 
 
   return (
     <>
-
       <div className="flex flex-col container">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
@@ -87,23 +63,25 @@ const Home = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {listUser.current?.map((user, index) => (
+                  {users.usuarios?.map((user, index) => (
                     <tr key={index} className="border-b dark:border-neutral-500">
-                      <td className="whitespace-nowrap px-6 py-4 font-medium">{index +1}</td>
+                      <td className="whitespace-nowrap px-6 py-4 font-medium">{index + 1}</td>
                       <td className="whitespace-nowrap px-6 py-4">{user?.nombre}</td>
                       <td className="whitespace-nowrap px-6 py-4">{user?.correo}</td>
                       <td className="whitespace-nowrap px-6 py-4">{user?.rol}</td>
                       <td className="whitespace-nowrap px-6 py-4">{user?.uid}</td>
                       <td className="whitespace-nowrap px-6 py-4">
                         <div className="flex flex-row">
-                          <button onClick={() => onHandlerDelete(user?.uid)}> 
+                          <button onClick={() => onHandlerDelete(user?.uid)}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                               <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                             </svg>
                           </button>
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                          </svg>
+                          <button  onClick={() => onHandlerUpdate(user)}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                            </svg>
+                          </button>
                         </div>
 
                       </td>
@@ -114,6 +92,36 @@ const Home = () => {
             </div>
           </div>
         </div>
+        <modal/>
+        <nav aria-label="Page navigation example">
+          <ul className="list-style-none flex">
+            <li>
+              <a
+                className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
+                href="#">Previous</a>
+            </li>
+            <li>
+              <a
+                className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
+                href="#">1</a>
+            </li>
+            <li aria-current="page">
+              <a
+                className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
+                href="#">2</a>
+            </li>
+            <li>
+              <a
+                className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
+                href="#">3</a>
+            </li>
+            <li>
+              <a
+                className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
+                href="#">Next</a>
+            </li>
+          </ul>
+        </nav>
       </div>
 
     </>
