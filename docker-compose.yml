@@ -7,6 +7,6 @@ services:
     container_name:  frontend-melany
     restart: unless-stopped
     environment:
-      - VITE_API_URL=https://curso-node-restserver-production-2727.up.railway.app/api
+      - VITE_API_URL=http://localhost:8080/api
     ports:
       - "80:80"

@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import NavBar from "../../components/NavBar";
+import NavBar from "../../ui/componentes/NavBar";
 import SignupPage from "../SignupPage";
 import Home from '../Home';
 

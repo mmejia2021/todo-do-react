@@ -26,9 +26,6 @@ export const Login = () => {
     }, [errorMessage]);
     
 
- 
-    
-
 
     return (
         <form className="min-h-screen bg-purple-400 flex justify-center items-center group" noValidate onSubmit={loginFormSubmit}>
