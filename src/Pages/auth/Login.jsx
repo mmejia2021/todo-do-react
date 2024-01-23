@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useAuthStore } from '../../hooks';
-import { useForm } from "../../Pages/hooks/useForm";
 import Swal from "sweetalert2";
+import { useForm } from "../hooks/useForm";
 
 const loginForm = {
     correo: '',
@@ -28,11 +28,12 @@ export const Login = () => {
 
 
     return (
-        <form className="min-h-screen bg-purple-400 flex justify-center items-center group" noValidate onSubmit={loginFormSubmit}>
+        <form className="min-h-screen bg-cyan-600 flex justify-center items-center group" noValidate onSubmit={loginFormSubmit}>
 
             <div className="py-12 px-12 bg-white rounded-2xl shadow-xl z-20">
                 <div>
                     <h1 className="text-3xl font-bold text-center mb-4 cursor-pointer">Iniciar sesión</h1>
+                    <p className="text-center mb-2 font-bold">Plantila react + vite</p>
                 </div>
                 <div className="space-y-4">
                     <label>
@@ -53,14 +54,11 @@ export const Login = () => {
 
                 </div>
                 <div className="text-center mt-6">
-                    <button type="submit" className="py-3 w-64 text-xl text-white bg-purple-400 rounded-2xl group-invalid:pointer-events-none group-invalid:opacity-30" >Ingresar</button>
+                    <button type="submit" className="py-3 w-64 text-xl text-white bg-pink-500 rounded-2xl group-invalid:pointer-events-none group-invalid:opacity-30" >Ingresar</button>
 
                 </div>
             </div>
-            <div className="w-40 h-40 absolute bg-purple-300 rounded-full top-0 right-12 hidden md:block"></div>
-            <div
-                className="w-20 h-40 absolute bg-purple-300 rounded-full bottom-20 left-10 transform rotate-45 hidden md:block">
-            </div>
+
         </form>
 
     )

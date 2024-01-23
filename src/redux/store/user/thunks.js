@@ -1,4 +1,5 @@
-import { userApi } from "../../api";
+
+import { userApi } from "../../../services/api";
 import {setUsers, starLoadingUsers } from "./userSlide"
 
 export const getUsers = (page = 0) => {

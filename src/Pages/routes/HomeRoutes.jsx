@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import NavBar from "../../ui/componentes/NavBar";
-import SignupPage from "../SignupPage";
-import Home from '../Home';
+import Home from "../dashboard/Home";
+import SignupPage from "../register/SignupPage";
 
 export default function HomeRoutes() {
     return (

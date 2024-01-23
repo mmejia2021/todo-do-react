@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { Login } from "../auth";
+import { Login } from "../pages/auth/Login";
 import HomeRoutes from "../pages/routes/HomeRoutes";
 import { useAuthStore } from '../hooks';
 import { useEffect } from "react";

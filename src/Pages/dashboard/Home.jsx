@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import Swal from "sweetalert2";
-import { useAuthStore } from "../hooks";
+import { useAuthStore } from "../../hooks";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from "../store/user/thunks";
+import { getUsers } from "../../redux/store";
 
 const Home = () => {
 
@@ -14,6 +14,7 @@ const Home = () => {
 
 
   useEffect(() => {
+    console.log(users)
     dispatch(getUsers());
   }, [])
 
@@ -92,7 +93,6 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <modal/>
         <nav aria-label="Page navigation example">
           <ul className="list-style-none flex">
             <li>

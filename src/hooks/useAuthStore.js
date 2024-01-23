@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
-import { userApi } from "../api";
-import { onChecking, onLogin, onLogout, OnGetUsers, clearErrorMessage, onDelete } from '../store'
+import { userApi } from "../services/api";
+import { onChecking, onLogin, onLogout, clearErrorMessage, onDelete } from '../redux/store'
 
 
 export const useAuthStore = () => {
